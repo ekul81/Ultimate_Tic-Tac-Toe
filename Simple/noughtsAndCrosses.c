@@ -2,7 +2,8 @@
 char chars[9]; // yes I know it could be chars[8] but that would involve lots of changes and who cares about technical debt here...
 // yes I calling it chars is confusing but I couldn't get it working with chars and who cares...
 char whosTurn = 1; // just a char because I Only need space for 2 values, and haven't found bools yet.
-char isAI; //0 if 2 players, 1 if player 2 is an AI.
+
+
 void printgrid()
 {
     printf("   1 2 3 \n");
@@ -58,7 +59,11 @@ int anyonewon()
 
 void AITurn()
 {
-
+//if winning move available do that
+//if a move can block a win do that
+//aim for the centre
+//go for a corner
+//go randomly
 }
 
 void PlayerTurn()
@@ -118,7 +123,7 @@ int main()
 {
 
     char aWinnerExists = 0; // 0 is false, 1 or 2 represent winning player, 3 indicates only solution is a draw.
-
+    char isAI = 0; //0 if 2 players, 1 if player 2 is an AI.
     printf("##    ##  #######  ##     ##  ######   ##     ## ########  ###### \n");
     printf("###   ## ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
     printf("####  ## ##     ## ##     ## ##        ##     ##    ##    ##            ##   \n");
@@ -135,6 +140,7 @@ int main()
     printf(" ######  ##     ##  #######   ######   ######  ########  ######  \n"); // thanks http://www.network-science.de/ascii/
     printf("Built by Luke Dickety \n\n");
 start: //yes I know labels mean evil gotos but I'm new to C...
+    isAI =0;
     aWinnerExists = 0;
     whosTurn = 1;
     chars[1] = 0;
@@ -146,22 +152,26 @@ start: //yes I know labels mean evil gotos but I'm new to C...
     chars[7] = 0;
     chars[8] = 0;
     chars[9] = 0;
-    printf("\nPlay against AI (y/n)?")
+    printf("\nPlay against AI (y/n)?");
     char input = getchar();
-    if (input = 'y') isAI = 1;
+    if (input == 'y')
+    {
+        isAI = 1;
+    }
     printgrid();
     do
     {
-        if (whosTurn == 2 && isAi = 2)
+        if (whosTurn == 2 && isAI == 1)
         {
-            AITurn()
+            AITurn();
         }
         else
         {
-            PlayerTurn()
+            PlayerTurn();
         }
 
         printgrid();
+
         if (whosTurn == 1)
         {
             whosTurn = 2;
@@ -182,7 +192,6 @@ start: //yes I know labels mean evil gotos but I'm new to C...
         printf("Player %i won, well done!!!! (-: ", aWinnerExists);
     }
     printf("\n\n\n Do you wish to play another game (y/n) \n");
-    char input;
     fflush(stdin);
     input = getchar();
     if (input == 'y')
