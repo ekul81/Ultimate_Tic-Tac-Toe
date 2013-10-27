@@ -1,5 +1,5 @@
 #include <stdio.h>
-int chars[9]; // yes I know it could be chars[8] but that would involve lots of changes and who cares about technical debt here...
+char chars[9]; // yes I know it could be chars[8] but that would involve lots of changes and who cares about technical debt here...
 // yes I calling it chars is confusing but I couldn't get it working with chars and who cares...
 void printgrid()
 {
@@ -46,7 +46,10 @@ int anyonewon()
     {
         return chars[7];
     }
-
+    else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9])
+    {
+        return 3;
+    }
     else return 0;
 }
 
@@ -71,6 +74,8 @@ int main()
     printf(" ######  ##     ##  #######   ######   ######  ########  ######  \n"); // thanks http://www.network-science.de/ascii/
     printf("Built by Luke Dickety \n\n");
 start: //yes I know labels mean evil gotos but I'm new to C...
+    aWinnerExists = 0
+    whosTurn = 1
     chars[1] = 0;
     chars[2] = 0;
     chars[3] = 0;
@@ -84,7 +89,7 @@ start: //yes I know labels mean evil gotos but I'm new to C...
     do
     {
 go:
-        printf("Player %i, decide where you wish to go...\nPlease enter the coordinates with a new line between...\n", whosTurn);
+        printf("Player %i, decide where you wish to go...\nPlease enter the coordinates with a space in between. i.e 'x y'\n", whosTurn);
         int column;
         int row;
         scanf("%i", &column);
@@ -144,10 +149,19 @@ go:
         aWinnerExists = anyonewon();
     }
     while (aWinnerExists == 0);
-    printf("Player %i won, well done!!!! (-: \n\n\n Do you wish to play another game (y/n) \n", aWinnerExists);
-    char* input;
-    scanf("%s", &input);
-    if (input[0] == "y")
+    if (aWinnerExists ==3)
+    {
+        printf("It's a draw... )-:");
+    }
+    else
+    {
+        printf("Player %i won, well done!!!! (-: ", aWinnerExists);
+    }
+    printf("\n\n\n Do you wish to play another game (y/n) \n");
+    char input;
+    fflush(stdin);
+    input = getchar();
+    if (input == 'y')
     {
         goto start;
     }
