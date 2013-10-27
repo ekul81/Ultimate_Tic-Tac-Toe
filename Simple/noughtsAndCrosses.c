@@ -1,6 +1,7 @@
 #include <stdio.h>
 char chars[9]; // yes I know it could be chars[8] but that would involve lots of changes and who cares about technical debt here...
 // yes I calling it chars is confusing but I couldn't get it working with chars and who cares...
+char whosTurn = 1; // just a char because I Only need space for 2 values, and haven't found bools yet.
 void printgrid()
 {
     printf("   1 2 3 \n");
@@ -35,58 +36,31 @@ int anyonewon()
     }
     else if (chars[3] == chars[6] && chars[6] == chars[9] && chars[9] != 0)
     {
-        return chars[6];
+        {
+            return chars[6];
+        }
+
+        else if (chars[1] == chars[5] && chars[5] == chars[9] && chars[5] != 0)
+        {
+            return chars[5];
+        }
+        else if (chars[3] == chars[5] && chars[5] == chars[7] && chars[7] != 0)
+        {
+            return chars[7];
+        }
+        else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9])
+        {
+            return 3;
+        }
+        else return 0;
     }
 
-    else if (chars[1] == chars[5] && chars[5] == chars[9] && chars[5] != 0)
+    void AITurn()
     {
-        return chars[5];
-    }
-    else if (chars[3] == chars[5] && chars[5] == chars[7] && chars[7] != 0)
-    {
-        return chars[7];
-    }
-    else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9])
-    {
-        return 3;
-    }
-    else return 0;
-}
 
-int main()
-{
+    }
 
-    char aWinnerExists = 0; // 0 is false, 1 or 2 represent winning player, 3 indicates only solution is a draw.
-    char whosTurn = 1;
-    printf("##    ##  #######  ##     ##  ######   ##     ## ########  ###### \n");
-    printf("###   ## ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
-    printf("####  ## ##     ## ##     ## ##        ##     ##    ##    ##            ##   \n");
-    printf("## ## ## ##     ## ##     ## ##   #### #########    ##     ######     ###### \n");
-    printf("##  #### ##     ## ##     ## ##    ##  ##     ##    ##          ##      ##   \n");
-    printf("##   ### ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
-    printf("##    ##  #######   #######   ######   ##     ##    ##     ######            \n\n");
-    printf(" ######  ########   #######   ######   ######  ########  ######  \n");
-    printf("##    ## ##     ## ##     ## ##    ## ##    ## ##       ##    ## \n");
-    printf("##       ##     ## ##     ## ##       ##       ##       ##       \n");
-    printf("##       ########  ##     ##  ######   ######  ######    ######  \n");
-    printf("##       ##   ##   ##     ##       ##       ## ##             ## \n");
-    printf("##    ## ##    ##  ##     ## ##    ## ##    ## ##       ##    ## \n");
-    printf(" ######  ##     ##  #######   ######   ######  ########  ######  \n"); // thanks http://www.network-science.de/ascii/
-    printf("Built by Luke Dickety \n\n");
-start: //yes I know labels mean evil gotos but I'm new to C...
-    aWinnerExists = 0
-    whosTurn = 1
-    chars[1] = 0;
-    chars[2] = 0;
-    chars[3] = 0;
-    chars[4] = 0;
-    chars[5] = 0;
-    chars[6] = 0;
-    chars[7] = 0;
-    chars[8] = 0;
-    chars[9] = 0;
-    printgrid();
-    do
+    void PlayerTurn()
     {
 go:
         printf("Player %i, decide where you wish to go...\nPlease enter the coordinates with a space in between. i.e 'x y'\n", whosTurn);
@@ -137,35 +111,73 @@ go:
             goto go;
         }
         chars[position] = whosTurn;
+    }
+
+    int main()
+    {
+
+        char aWinnerExists = 0; // 0 is false, 1 or 2 represent winning player, 3 indicates only solution is a draw.
+
+        printf("##    ##  #######  ##     ##  ######   ##     ## ########  ###### \n");
+        printf("###   ## ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
+        printf("####  ## ##     ## ##     ## ##        ##     ##    ##    ##            ##   \n");
+        printf("## ## ## ##     ## ##     ## ##   #### #########    ##     ######     ###### \n");
+        printf("##  #### ##     ## ##     ## ##    ##  ##     ##    ##          ##      ##   \n");
+        printf("##   ### ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
+        printf("##    ##  #######   #######   ######   ##     ##    ##     ######            \n\n");
+        printf(" ######  ########   #######   ######   ######  ########  ######  \n");
+        printf("##    ## ##     ## ##     ## ##    ## ##    ## ##       ##    ## \n");
+        printf("##       ##     ## ##     ## ##       ##       ##       ##       \n");
+        printf("##       ########  ##     ##  ######   ######  ######    ######  \n");
+        printf("##       ##   ##   ##     ##       ##       ## ##             ## \n");
+        printf("##    ## ##    ##  ##     ## ##    ## ##    ## ##       ##    ## \n");
+        printf(" ######  ##     ##  #######   ######   ######  ########  ######  \n"); // thanks http://www.network-science.de/ascii/
+        printf("Built by Luke Dickety \n\n");
+start: //yes I know labels mean evil gotos but I'm new to C...
+        aWinnerExists = 0;
+        whosTurn = 1;
+        chars[1] = 0;
+        chars[2] = 0;
+        chars[3] = 0;
+        chars[4] = 0;
+        chars[5] = 0;
+        chars[6] = 0;
+        chars[7] = 0;
+        chars[8] = 0;
+        chars[9] = 0;
         printgrid();
-        if (whosTurn == 1)
+        do
         {
-            whosTurn = 2;
+            PlayerTurn();
+            printgrid();
+            if (whosTurn == 1)
+            {
+                whosTurn = 2;
+            }
+            else
+            {
+                whosTurn = 1;
+            }
+            aWinnerExists = anyonewon();
+        }
+        while (aWinnerExists == 0);
+        if (aWinnerExists ==3)
+        {
+            printf("It's a draw... )-:");
         }
         else
         {
-            whosTurn = 1;
+            printf("Player %i won, well done!!!! (-: ", aWinnerExists);
         }
-        aWinnerExists = anyonewon();
+        printf("\n\n\n Do you wish to play another game (y/n) \n");
+        char input;
+        fflush(stdin);
+        input = getchar();
+        if (input == 'y')
+        {
+            goto start;
+        }
+        return 0;
     }
-    while (aWinnerExists == 0);
-    if (aWinnerExists ==3)
-    {
-        printf("It's a draw... )-:");
-    }
-    else
-    {
-        printf("Player %i won, well done!!!! (-: ", aWinnerExists);
-    }
-    printf("\n\n\n Do you wish to play another game (y/n) \n");
-    char input;
-    fflush(stdin);
-    input = getchar();
-    if (input == 'y')
-    {
-        goto start;
-    }
-    return 0;
-}
 
 
