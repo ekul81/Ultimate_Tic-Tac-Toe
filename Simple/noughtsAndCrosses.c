@@ -2,6 +2,7 @@
 char chars[9]; // yes I know it could be chars[8] but that would involve lots of changes and who cares about technical debt here...
 // yes I calling it chars is confusing but I couldn't get it working with chars and who cares...
 char whosTurn = 1; // just a char because I Only need space for 2 values, and haven't found bools yet.
+char isAI; //0 if 2 players, 1 if player 2 is an AI.
 void printgrid()
 {
     printf("   1 2 3 \n");
@@ -35,149 +36,160 @@ int anyonewon()
         return chars[8];
     }
     else if (chars[3] == chars[6] && chars[6] == chars[9] && chars[9] != 0)
-    {
-        {
-            return chars[6];
-        }
 
-        else if (chars[1] == chars[5] && chars[5] == chars[9] && chars[5] != 0)
-        {
-            return chars[5];
-        }
-        else if (chars[3] == chars[5] && chars[5] == chars[7] && chars[7] != 0)
-        {
-            return chars[7];
-        }
-        else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9])
-        {
-            return 3;
-        }
-        else return 0;
+    {
+        return chars[6];
     }
 
-    void AITurn()
+    else if (chars[1] == chars[5] && chars[5] == chars[9] && chars[5] != 0)
     {
-
+        return chars[5];
     }
-
-    void PlayerTurn()
+    else if (chars[3] == chars[5] && chars[5] == chars[7] && chars[7] != 0)
     {
+        return chars[7];
+    }
+    else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9])
+    {
+        return 3;
+    }
+    else return 0;
+}
+
+void AITurn()
+{
+
+}
+
+void PlayerTurn()
+{
 go:
-        printf("Player %i, decide where you wish to go...\nPlease enter the coordinates with a space in between. i.e 'x y'\n", whosTurn);
-        int column;
-        int row;
-        scanf("%i", &column);
-        scanf("%i",  &row);
-        int position = 1;
-        switch (row)
-        {
-        case 1:
-            break;
-        case 2:
-            position += 3;
-            break;
-        case 3:
-            position += 6;
-            break;
-        default:
-            position += 100;
-        }
-
-        switch (column)
-        {
-        case 1:
-            break;
-        case 2:
-            position += 1;
-            break;
-        case 3:
-            position += 2;
-            break;
-        default:
-            position += 100;
-            break;
-        }
-
-
-        if (position > 99)
-        {
-            printf("\n something went wrong... Try again \n");
-            goto go;
-        }
-
-        if (chars[position] != 0)
-        {
-            printf("Someones already gone in this square... Try a different one \n");
-            goto go;
-        }
-        chars[position] = whosTurn;
+    printf("Player %i, decide where you wish to go...\nPlease enter the coordinates with a space in between. i.e 'x y'\n", whosTurn);
+    int column;
+    int row;
+    scanf("%i", &column);
+    scanf("%i",  &row);
+    int position = 1;
+    switch (row)
+    {
+    case 1:
+        break;
+    case 2:
+        position += 3;
+        break;
+    case 3:
+        position += 6;
+        break;
+    default:
+        position += 100;
     }
 
-    int main()
+    switch (column)
     {
+    case 1:
+        break;
+    case 2:
+        position += 1;
+        break;
+    case 3:
+        position += 2;
+        break;
+    default:
+        position += 100;
+        break;
+    }
 
-        char aWinnerExists = 0; // 0 is false, 1 or 2 represent winning player, 3 indicates only solution is a draw.
 
-        printf("##    ##  #######  ##     ##  ######   ##     ## ########  ###### \n");
-        printf("###   ## ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
-        printf("####  ## ##     ## ##     ## ##        ##     ##    ##    ##            ##   \n");
-        printf("## ## ## ##     ## ##     ## ##   #### #########    ##     ######     ###### \n");
-        printf("##  #### ##     ## ##     ## ##    ##  ##     ##    ##          ##      ##   \n");
-        printf("##   ### ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
-        printf("##    ##  #######   #######   ######   ##     ##    ##     ######            \n\n");
-        printf(" ######  ########   #######   ######   ######  ########  ######  \n");
-        printf("##    ## ##     ## ##     ## ##    ## ##    ## ##       ##    ## \n");
-        printf("##       ##     ## ##     ## ##       ##       ##       ##       \n");
-        printf("##       ########  ##     ##  ######   ######  ######    ######  \n");
-        printf("##       ##   ##   ##     ##       ##       ## ##             ## \n");
-        printf("##    ## ##    ##  ##     ## ##    ## ##    ## ##       ##    ## \n");
-        printf(" ######  ##     ##  #######   ######   ######  ########  ######  \n"); // thanks http://www.network-science.de/ascii/
-        printf("Built by Luke Dickety \n\n");
+    if (position > 99)
+    {
+        printf("\n something went wrong... Try again \n");
+        goto go;
+    }
+
+    if (chars[position] != 0)
+    {
+        printf("Someones already gone in this square... Try a different one \n");
+        goto go;
+    }
+    chars[position] = whosTurn;
+}
+
+int main()
+{
+
+    char aWinnerExists = 0; // 0 is false, 1 or 2 represent winning player, 3 indicates only solution is a draw.
+
+    printf("##    ##  #######  ##     ##  ######   ##     ## ########  ###### \n");
+    printf("###   ## ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
+    printf("####  ## ##     ## ##     ## ##        ##     ##    ##    ##            ##   \n");
+    printf("## ## ## ##     ## ##     ## ##   #### #########    ##     ######     ###### \n");
+    printf("##  #### ##     ## ##     ## ##    ##  ##     ##    ##          ##      ##   \n");
+    printf("##   ### ##     ## ##     ## ##    ##  ##     ##    ##    ##    ##      ##   \n");
+    printf("##    ##  #######   #######   ######   ##     ##    ##     ######            \n\n");
+    printf(" ######  ########   #######   ######   ######  ########  ######  \n");
+    printf("##    ## ##     ## ##     ## ##    ## ##    ## ##       ##    ## \n");
+    printf("##       ##     ## ##     ## ##       ##       ##       ##       \n");
+    printf("##       ########  ##     ##  ######   ######  ######    ######  \n");
+    printf("##       ##   ##   ##     ##       ##       ## ##             ## \n");
+    printf("##    ## ##    ##  ##     ## ##    ## ##    ## ##       ##    ## \n");
+    printf(" ######  ##     ##  #######   ######   ######  ########  ######  \n"); // thanks http://www.network-science.de/ascii/
+    printf("Built by Luke Dickety \n\n");
 start: //yes I know labels mean evil gotos but I'm new to C...
-        aWinnerExists = 0;
-        whosTurn = 1;
-        chars[1] = 0;
-        chars[2] = 0;
-        chars[3] = 0;
-        chars[4] = 0;
-        chars[5] = 0;
-        chars[6] = 0;
-        chars[7] = 0;
-        chars[8] = 0;
-        chars[9] = 0;
-        printgrid();
-        do
+    aWinnerExists = 0;
+    whosTurn = 1;
+    chars[1] = 0;
+    chars[2] = 0;
+    chars[3] = 0;
+    chars[4] = 0;
+    chars[5] = 0;
+    chars[6] = 0;
+    chars[7] = 0;
+    chars[8] = 0;
+    chars[9] = 0;
+    printf("\nPlay against AI (y/n)?")
+    char input = getchar();
+    if (input = 'y') isAI = 1;
+    printgrid();
+    do
+    {
+        if (whosTurn == 2 && isAi = 2)
         {
-            PlayerTurn();
-            printgrid();
-            if (whosTurn == 1)
-            {
-                whosTurn = 2;
-            }
-            else
-            {
-                whosTurn = 1;
-            }
-            aWinnerExists = anyonewon();
-        }
-        while (aWinnerExists == 0);
-        if (aWinnerExists ==3)
-        {
-            printf("It's a draw... )-:");
+            AITurn()
         }
         else
         {
-            printf("Player %i won, well done!!!! (-: ", aWinnerExists);
+            PlayerTurn()
         }
-        printf("\n\n\n Do you wish to play another game (y/n) \n");
-        char input;
-        fflush(stdin);
-        input = getchar();
-        if (input == 'y')
+
+        printgrid();
+        if (whosTurn == 1)
         {
-            goto start;
+            whosTurn = 2;
         }
-        return 0;
+        else
+        {
+            whosTurn = 1;
+        }
+        aWinnerExists = anyonewon();
     }
+    while (aWinnerExists == 0);
+    if (aWinnerExists ==3)
+    {
+        printf("It's a draw... )-:");
+    }
+    else
+    {
+        printf("Player %i won, well done!!!! (-: ", aWinnerExists);
+    }
+    printf("\n\n\n Do you wish to play another game (y/n) \n");
+    char input;
+    fflush(stdin);
+    input = getchar();
+    if (input == 'y')
+    {
+        goto start;
+    }
+    return 0;
+}
 
 
