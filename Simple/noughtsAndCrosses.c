@@ -15,45 +15,15 @@ void printgrid()
 
 int anyonewon()
 {
-    if ((chars[1] == chars[2] && chars[2] == chars[3] && chars[2]) != 0)
-    {
-        return chars[2];
-    }
-    else if (chars[4] == chars[5] && chars[5] == chars[6] && chars[5] != 0)
-    {
-        return chars[5];
-    }
-    else if (chars[7] == chars[8] && chars[8] == chars[9] && chars[8] != 0)
-    {
-        return chars[8];
-    }
-
-    else if (chars[1] == chars[4] && chars[4] == chars[7] && chars[4] != 0)
-    {
-        return chars[4];
-    }
-    else if (chars[2] == chars[5] && chars[5] == chars[8] && chars[5] != 0)
-    {
-        return chars[8];
-    }
-    else if (chars[3] == chars[6] && chars[6] == chars[9] && chars[9] != 0)
-
-    {
-        return chars[6];
-    }
-
-    else if (chars[1] == chars[5] && chars[5] == chars[9] && chars[5] != 0)
-    {
-        return chars[5];
-    }
-    else if (chars[3] == chars[5] && chars[5] == chars[7] && chars[7] != 0)
-    {
-        return chars[7];
-    }
-    else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9])
-    {
-        return 3;
-    }
+    if ((chars[1] == chars[2] && chars[2] == chars[3] && chars[2]) != 0)     return chars[2];
+    else if (chars[4] == chars[5] && chars[5] == chars[6] && chars[5] != 0)  return chars[5];
+    else if (chars[7] == chars[8] && chars[8] == chars[9] && chars[8] != 0)  return chars[8];
+    else if (chars[1] == chars[4] && chars[4] == chars[7] && chars[4] != 0)  return chars[4];
+    else if (chars[2] == chars[5] && chars[5] == chars[8] && chars[5] != 0)  return chars[8];
+    else if (chars[3] == chars[6] && chars[6] == chars[9] && chars[9] != 0)  return chars[6];
+    else if (chars[1] == chars[5] && chars[5] == chars[9] && chars[5] != 0)  return chars[5];
+    else if (chars[3] == chars[5] && chars[5] == chars[7] && chars[7] != 0)  return chars[7];
+    else if (chars[1] != 0 && chars[2] != 0 && chars[3] != 0 && chars[4] != 0 && chars[5] != 0 && chars[6] != 0 && chars[7] != 0 && chars[8] != 0 && chars[9]) return 3;
     else return 0;
 }
 
