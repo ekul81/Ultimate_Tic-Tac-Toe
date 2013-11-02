@@ -1,8 +1,13 @@
 #include <stdio.h>
+#include <stdbool.h>
+
+typedef bool _bool;
+
 //protypes here
 void printgrid();
 void cleargrid();
-int returnlocation();
+int returnlocation(char* query);
+bool locationtaken(int gridloc, int location);
 //global variables declared here
 char grid[8][8];
 
@@ -10,6 +15,12 @@ int main()
 {
     cleargrid();
     printgrid();
+    char gridsquare = -5;
+    char whereinsquare = -5;
+startturn:
+    gridsquare = returnlocation("Which grid do you want to start in?\n");
+    whereinsquare = returnlocation("Where do you wish to play in that grid?\n");
+    if (locationtaken(gridsquare,whereinsquare)) {goto startturn;}
     return 0;
 }
 
@@ -44,31 +55,46 @@ void cleargrid()
     }
 }
 
-int returnlocation()
+int returnlocation(char* query)
 {
-    locationstart:
     int location = 0;
-    printf("\nChoose which grid you wish to play in (enter in the format ' x,y ')? ");
+locationstart:
+    printf("\n%s",query);
     int row;
     char column;
     fflush(stdin);
-    scanf("%c,%d", column, row);
+    scanf("%c,%d", &column, &row);
 
     switch(column)
     {
     case 'a':
-    case 'A': location += 1; break;
+    case 'A':
+        location += 1;
+        break;
     case 'b':
-    case 'B': location += 2; break;
+    case 'B':
+        location += 2;
+        break;
     case 'c':
-    case 'C': location += 3; break;
-    default: location += 100; break;
+    case 'C':
+        location += 3;
+        break;
+    default:
+        location += 100;
+        break;
     }
-    location += row*3
-    if location > 9
+    location += row*3;
+    if (location > 9)
     {
-        printf("Input Invalid")
+        printf("Input Invalid");
         goto locationstart;
     }
-    return location
+    return --location;
 }
+
+bool locationtaken(int gridloc, int location)
+{
+    if (grid[gridloc][location] = '.') return false;
+    else return true;
+}
+
