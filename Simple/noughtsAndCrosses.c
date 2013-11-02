@@ -29,11 +29,11 @@ int anyonewon()
 
 void AITurn()
 {
-//if winning move available do that
-//if a move can block a win do that
-//aim for the centre
-//go for a corner
-//go randomly
+    //if winning move available do that
+    //if a move can block a win do that
+    //aim for the centre
+    //go for a corner
+    //go randomly
 }
 
 void PlayerTurn()
